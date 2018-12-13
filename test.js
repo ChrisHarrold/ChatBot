@@ -99,15 +99,15 @@ if (s_score >= 0){
     }
 
 }
-
-if ((msg1.LowScore == 1) || (msg1.HardBan ==1) || (msg1.NoTags == 1)) {
+msg1.LowScore = 0
+if (msg1.LowScore = 1) {
     msg1.ISENTTHIS = "Yep";
     return [msg1, null, null, null];
 
-} else if ((msg3.Vendor == 1) || (msg3.WebLink === 0)){
+} else if ((msg3.Vendor = 1) || (msg3.WebLink = 0)){
     return [null, null, msg3, null];
 
-} else if ((msg4.Tagged == 1) || (msg4.Retweet == 1)){
+} else if ((msg4.Tagged = 1) || (msg4.Retweet = 1)){
     return [null, null, null, msg4];
 
 } else {
