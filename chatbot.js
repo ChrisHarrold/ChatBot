@@ -4,6 +4,7 @@ var tag_count = 0;
 
 // output 1 is the bin - nothing survives this or is reused
 msg1 = msg;
+msg1.LowScore = "False";
 msg1.HardBan = "False";
 msg1.NoTags = "False";
 
@@ -23,8 +24,7 @@ msg4.Retweet = "False";
 msg4.Tagged = "False";
 
 // check the sentiment score first - we only want neutral or positive messages (nothing that says the topic is bad!)
-// negative tweets are not returned - they are discarded fully - can be overridden with an else statement 
-// to send them for other processing if desired
+// negative tweets are not returned - they are dropped, but logged and can be routed by catching them later from msg1
 if (s_score >= 0){
 
     // Check if the tweet is a retweet already - if so, send to the retweeted bin for future processing
@@ -61,7 +61,7 @@ if (s_score >= 0){
         return [msg1, null, null, null];
     
     // check for "Hard Bans" - these are words we definitely NEVER want to retweet or show up in our feed in any way
-    // these messages are fully discarded no matter what
+    // these messages are fully discarded
     } else if (str_t_text.indexOf("IBM") > -1){
         msg1.HardBan = "True";
         return [msg1, null, null, null];
@@ -110,4 +110,7 @@ if (s_score >= 0){
     } else {
         return [null, msg2, null, null];
     }
+} else {
+    msg1.LowScore = "True";
+    return [msg1, null, null, null];
 }
