@@ -58,9 +58,15 @@ if (s_score >= 0){
     } else if (str_t_text.indexOf("ibm") > -1){
         msg1.HardBan = "True";
         return [msg1, null, null, null];
+    } else if (str_t_text.indexOf("blockchain") > -1){
+        msg1.HardBan = "True";
+        return [msg1, null, null, null];
+    } else if (str_t_text.indexOf("Blockchain") > -1){
+        msg1.HardBan = "True";
+        return [msg1, null, null, null];
 
     // Now parse for a variety of keywords - essentially anything we do or don't want to tweet out
-    // Recommend at a minimum to check for vendors and the @ sign so you are not tagging people and companies in the RT
+    // Recommend at a minimum to check for vendors so you are not tagging people and companies in the RT
     // These messages are recycled for "original" content via the tweet-scrubber/recycler function later
     
     } else if (str_t_text.indexOf("Azure") > -1){
@@ -99,7 +105,6 @@ if (s_score >= 0){
     } else if (str_t_text.indexOf("RT") > -1){
         msg4.Retweet = "True";
         return [null, null, null, msg4];
-    } 
     //check for anyone being tagged in the tweet?
     } else if (str_t_text.indexOf("@") > -1){
         msg4.Tagged = "True";
