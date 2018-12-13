@@ -26,16 +26,6 @@ msg4.Tagged = "False";
 // check the sentiment score first - we only want neutral or positive messages (nothing that says the topic is bad!)
 // negative tweets are not returned - they are dropped, but logged and can be routed by catching them later from msg1
 if (s_score >= 0){
-
-    // Check if the tweet is a retweet already - if so, send to the retweeted bin for future processing
-    if (str_t_text.indexOf("RT") > -1){
-        msg4.Retweet = "True";
-        return [null, null, null, msg4];
-    } 
-    //check for anyone being tagged in the tweet?
-    } else if (str_t_text.indexOf("@") > -1){
-        msg4.Tagged = "True";
-        return [null, null, null, msg4];
     
     // check if the tweet is tagged with the keyword(s) and variations of the keyword(s) as definied in the twitter node
     // add to the "tags counter" value so that if there are 0 tags at the end we know it is not a valid tweet
@@ -104,7 +94,17 @@ if (s_score >= 0){
     } else if (str_t_text.indexOf("http") == -1){
         msg3.WebLink = "False";
         return [null, null, msg3, null];
-
+    
+    // Check if the tweet is a retweet already - if so, send to the retweeted bin for future processing
+    } else if (str_t_text.indexOf("RT") > -1){
+        msg4.Retweet = "True";
+        return [null, null, null, msg4];
+    } 
+    //check for anyone being tagged in the tweet?
+    } else if (str_t_text.indexOf("@") > -1){
+        msg4.Tagged = "True";
+        return [null, null, null, msg4];
+    
     // if it passes all the checks, then we send it to the "happy path" and it is
     // queued for retweet
     } else {
